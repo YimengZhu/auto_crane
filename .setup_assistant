@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: ""
+    relative_path: /home/yimzh/AutoCrane/urdf/crane.urdf.xacro
+    xacro_args: ""
+  SRDF:
+    relative_path: config/AutoCrane.srdf
+  CONFIG:
+    author_name: Yimeng Zhu
+    author_email: yimeng.zhu0821@gmail.com
+    generated_timestamp: 1647264164

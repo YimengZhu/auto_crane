@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<robot name="TowerCrane">
+
+  <!-- * * * Link Definitions * * * -->
+
+  <link name="base_link">
+    <visual>
+  	  <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 0.1 2"/>
+      </geometry>
+      <material name="m1">
+             <color rgba="0 0.9 0.9 1.0"/>
+      </material>
+    </visual>  
+  </link>
+
+  <link name="arm">
+    <visual>
+        <origin xyz="0 0.6 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.1 2 0.1"/>
+      </geometry>
+      <material name="m2">
+             <color rgba="0.3 0.15 0.9 1.0"/>
+      </material>
+    </visual>  
+  </link>
+
+  <link name="slider">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+            <axis xyz="0 0 0" />
+      <geometry>
+        <box size="0.15 0.15 0.15"/>
+      </geometry>
+      <material name="m3">
+             <color rgba="0.4 0.4 0.3 1.0"/>
+         </material>
+    </visual>  
+  </link>
+
+  <link name="gripper">
+    <visual>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+           <axis xyz="0 0 0" />
+      <geometry>
+        <box size="0.05 0.05 0.05"/>
+      </geometry>
+      <material name="m4">
+             <color rgba="0.2 0.7 0.3 1.0"/>
+         </material>
+    </visual>  
+  </link>
+
+  <!-- * * * Joint Definitions * * * -->
+  <joint name="base_arm" type="revolute">
+    <parent link="base_link"/>
+    <child link="arm"/>
+    <limit lower="-3.1416" upper="3.1416" effort="1" velocity="3"/>
+    <origin xyz="0 0 0.815" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+
+  <joint name="arm_slider" type="prismatic">
+    <parent link="arm"/>
+    <child link="slider"/>
+    <limit lower="0" upper="1.2" effort="10" velocity="3"/>
+    <origin xyz="0 0.4 0" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint name="slider_gripper" type="prismatic">
+    <parent link="slider"/>
+    <child link="gripper"/>
+    <limit lower="0" upper="1.2" effort="10" velocity="3"/>
+    <origin xyz="0 0 0" rpy="-3.1416 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+
+</robot>

@@ -1,0 +1,10 @@
+controller_list:
+  - name: fake_crane_gripper_controller
+    type: $(arg fake_execution_type)
+    joints:
+      - base_arm
+      - arm_slider
+      - slider_gripper
+initial:  # Define initial robot poses.
+  - group: crane_gripper
+    pose: home
