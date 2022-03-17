@@ -21,14 +21,12 @@
         <joint name="slider_gripper" value="0" />
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="effector" parent_link="gripper" group="gripper_group" />
+    <end_effector name="end_effector" parent_link="gripper" group="gripper_group" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
     <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link" />
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="arm" link2="base_link" reason="Adjacent" />
     <disable_collisions link1="arm" link2="gripper" reason="Default" />
     <disable_collisions link1="arm" link2="slider" reason="Adjacent" />
-    <disable_collisions link1="base_link" link2="gripper" reason="Never" />
-    <disable_collisions link1="base_link" link2="slider" reason="Never" />
     <disable_collisions link1="gripper" link2="slider" reason="Adjacent" />
 </robot>

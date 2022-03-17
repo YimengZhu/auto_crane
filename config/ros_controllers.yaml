@@ -20,8 +20,8 @@ joint_state_controller:
   publish_rate: 50
 controller_list:
   []
-arm_poseition_controller:
-  type: position_controllers/JointPositionController
+joint_state_controller:
+  type: effort_controllers/JointPositionController
   joints:
     - base_arm
     - arm_slider

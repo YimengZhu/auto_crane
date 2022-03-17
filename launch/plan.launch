@@ -1,0 +1,7 @@
+
+<launch>
+
+    <node name="plan" pkg="auto_crane" type="planner" respawn="false" output="screen">
+    </node>
+  
+  </launch>
