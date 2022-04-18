@@ -1,0 +1,29 @@
+{
+  "obscales": [
+    {
+      "id": "obs1",
+      "shape": "BOX",
+      "position": {
+        "x": 1,
+        "y": 0.5,
+        "z": 1
+      },
+      "oritation": {
+        "w": 1,
+        "x": 0,
+        "y": 0.95,
+        "z": -0.5
+      }
+    }
+  ],
+  "start_state": {
+    "base_arm": -0.52359877,
+    "arm_slider": 0.15,
+    "slider_gripper": 1.15
+  },
+  "goal_state": {
+    "base_arm": 0.52359877,
+    "arm_slider": 0.95,
+    "slider_gripper": 1
+  }
+}

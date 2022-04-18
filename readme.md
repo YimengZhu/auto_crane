@@ -43,8 +43,9 @@ git clone https://github.com/YimengZhu/auto_crane.git
 
 ## 3. Build the package
 ```
-cd ~/catkin_ws/src/auto_crane
+cd ~/catkin_ws/
 catkin_make
+source devel/setup.sh    
 ```
 
 # Usage
