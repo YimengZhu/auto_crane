@@ -16,10 +16,13 @@
 #include <jsoncpp/json/json.h>
 #include <fstream>
 
+#include <auto_crane/waypoint.h>
+#include <cmath>
 int main(int argc, char** argv)
 {
   ros::init(argc, argv, "auto_crane_path_plan");
   ros::NodeHandle node_handle;
+  ros::Publisher waypoint_pub = node_handle.advertise<auto_crane::waypoint>("waypoint", 1000);
   ros::AsyncSpinner spinner(1);
   spinner.start();
 
@@ -124,12 +127,16 @@ int main(int argc, char** argv)
   move_group_interface.execute(my_plan);
 
   for(int i = 0; i < my_plan.trajectory_.joint_trajectory.points.size(); i++) {
-      std::cout << my_plan.trajectory_.joint_trajectory.points[i].positions[0];
-      std::cout<<"  ";
-      std::cout << my_plan.trajectory_.joint_trajectory.points[i].positions[1];
-      std::cout<<"\t";
-      std::cout << my_plan.trajectory_.joint_trajectory.points[i].positions[2];
-      std::cout<<"\n";
+      auto_crane::waypoint msg;
+      msg.base_arm = my_plan.trajectory_.joint_trajectory.points[i].positions[0];
+      msg.arm_slidder = my_plan.trajectory_.joint_trajectory.points[i].positions[1];
+      msg.slidder_gripper = my_plan.trajectory_.joint_trajectory.points[i].positions[2];
+      std::cout << msg.base_arm <<"\t" << msg.arm_slidder <<"\t" << msg.slidder_gripper << "\n";
+
+      msg.position[0] = msg.arm_slidder * sin(msg.base_arm);
+      msg.position[1] = msg.arm_slidder * cos(msg.base_arm);
+      msg.position[2] = 1.6 - msg.slidder_gripper;
+      waypoint_pub.publish(msg);
   }
 
   ros::shutdown();

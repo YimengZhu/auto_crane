@@ -19,6 +19,7 @@ find_package(catkin REQUIRED
     tf2_ros
     tf2_eigen
     tf2_geometry_msgs
+    message_generation
 )
 
 include_directories(
@@ -33,6 +34,18 @@ set(THIS_PACKAGE_INCLUDE_DIRS
   doc/interactivity/include
 )
 
+
+add_message_files(
+  FILES
+  waypoint.msg
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+
+
 catkin_package(
   LIBRARIES
   INCLUDE_DIRS
@@ -42,6 +55,7 @@ catkin_package(
     moveit_ros_planning_interface
     interactive_markers
     tf2_geometry_msgs
+    message_runtime
   DEPENDS
     EIGEN3
 )
