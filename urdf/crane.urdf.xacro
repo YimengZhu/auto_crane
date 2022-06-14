@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="AutoCrane">
 
+    <xacro:include filename="$(find auto_crane)/urdf/crane.gazebo.xacro"/>
     <!-- params definition -->
 
     <!-- macro definition -->
@@ -16,7 +17,7 @@
 
 
     <!-- * * * Link Definitions * * * -->
-
+    <link name="world" />
     <link name="base_link">
         <visual>
             <xacro:default_origin />
@@ -29,6 +30,10 @@
             <xacro:box_geometry length="0.1" width="0.1" height="2" />
             <xacro:default_origin />
         </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/>
+        </inertial>    
     </link>
 
     <link name="arm">
@@ -43,6 +48,10 @@
             <origin xyz="0 0.6 0" rpy="0 0 0" />
             <xacro:box_geometry length="0.1" width="2" height="0.1" />
         </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/>
+        </inertial>    
     </link>
 
     <link name="slider">
@@ -57,6 +66,10 @@
             <xacro:default_origin />
             <xacro:box_geometry length="0.15" width="0.15" height="0.15" />
         </collision>
+        <inertial>
+            <mass value="0.001"/>
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/>
+        </inertial>    
     </link>
 
     <link name="gripper">
@@ -71,13 +84,22 @@
             <xacro:default_origin />
             <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
         </collision>
+        <inertial>
+            <mass value="0.00001"/>
+            <inertia ixx="0" iyy="0" izz="0" ixy="0" ixz="0" iyz="0"/>
+        </inertial>    
     </link>
 
     <!-- * * * Joint Definitions * * * -->
+    <joint name="world_base_link" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+
     <joint name="base_arm" type="revolute">
         <parent link="base_link" />
         <child link="arm" />
-        <limit lower="-3.1416" upper="3.1416" effort="1" velocity="3" />
+        <limit lower="-3.1416" upper="3.1416" effort="0.1" velocity="3" />
         <origin xyz="0 0 0.815" rpy="0 0 0" />
         <axis xyz="0 0 1" />
     </joint>
@@ -99,5 +121,44 @@
         <axis xyz="0 0 1" />
     </joint>
 
+
+
+    <!-- * * * Sensor Definitions * * * -->
+    <link name="imu">
+        <visual>
+            <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
+        </visual>
+    </link>
+
+    <link name="camera_1">
+        <visual>
+            <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
+        </visual>
+    </link>
+
+    <link name="camera_2">
+        <visual>
+            <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
+        </visual>
+    </link>
+
+    <joint name="gripper_imu" type="fixed">
+        <parent link="gripper"/>
+        <child link="imu"/>
+        <origin xyz="0 0 0"/>
+    </joint>
+
+    <joint name="gripper_camera_1" type="fixed">
+        <parent link="gripper"/>
+        <child link="camera_1"/>
+        <origin xyz="0 -0.025 0" rpy="0 0 -1.5708"/>
+    </joint>
+
+    <joint name="gripper_camera_2" type="fixed">
+        <parent link="gripper"/>
+        <child link="camera_2"/>
+        <origin xyz="0 0.025 0" rpy="-3.1416 0 0"/>
+    </joint>
+    
 
 </robot> 
