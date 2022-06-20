@@ -52,47 +52,47 @@ int main(int argc, char** argv)
       move_group_interface.getCurrentState()->getJointModelGroup(PLANNING_GROUP);
 
 
-  std::cout << "adding objects"<<std::endl;
-  Json::Value obscales = config["obscales"];
-  std::vector<moveit_msgs::CollisionObject> collision_objects;
+  // std::cout << "adding objects"<<std::endl;
+  // Json::Value obscales = config["obscales"];
+  // std::vector<moveit_msgs::CollisionObject> collision_objects;
 
-  for(int i = 0; i < obscales.size(); i++){
-    moveit_msgs::CollisionObject collision_object;
-    collision_object.header.frame_id = move_group_interface.getPlanningFrame();
-    // The id of the object is used to identify it.
-    collision_object.id = obscales[i]["id"].asString();
+  // for(int i = 0; i < obscales.size(); i++){
+  //   moveit_msgs::CollisionObject collision_object;
+  //   collision_object.header.frame_id = move_group_interface.getPlanningFrame();
+  //   // The id of the object is used to identify it.
+  //   collision_object.id = obscales[i]["id"].asString();
 
-    // Define a box to add to the world.
-    shape_msgs::SolidPrimitive primitive;
-    geometry_msgs::Pose pose;
-          std::cout<<obscales[i]["shape"].asString()<<std::endl;
+  //   // Define a box to add to the world.
+  //   shape_msgs::SolidPrimitive primitive;
+  //   geometry_msgs::Pose pose;
+  //         std::cout<<obscales[i]["shape"].asString()<<std::endl;
 
-    if(obscales[i]["shape"].asString() == "BOX"){
-      std::cout<<"adding box"<<std::endl;
-      primitive.type = primitive.BOX;
-      primitive.dimensions.resize(3);
-      primitive.dimensions[primitive.BOX_X] = obscales[i]["position"]["x"].asDouble();
-      primitive.dimensions[primitive.BOX_Y] = obscales[i]["position"]["y"].asDouble();
-      primitive.dimensions[primitive.BOX_Z] = obscales[i]["position"]["z"].asDouble();
+  //   if(obscales[i]["shape"].asString() == "BOX"){
+  //     std::cout<<"adding box"<<std::endl;
+  //     primitive.type = primitive.BOX;
+  //     primitive.dimensions.resize(3);
+  //     primitive.dimensions[primitive.BOX_X] = obscales[i]["position"]["x"].asDouble();
+  //     primitive.dimensions[primitive.BOX_Y] = obscales[i]["position"]["y"].asDouble();
+  //     primitive.dimensions[primitive.BOX_Z] = obscales[i]["position"]["z"].asDouble();
 
-      // Define a pose for the box (specified relative to frame_id)
-      pose.orientation.w = obscales[i]["oritation"]["w"].asDouble();
-      pose.position.x = obscales[i]["oritation"]["x"].asDouble();
-      pose.position.y = obscales[i]["oritation"]["y"].asDouble();
-      pose.position.z = obscales[i]["oritation"]["z"].asDouble();
-    } else if (obscales[i]["shape"] == "CYLINDER") {
-      primitive.type = primitive.CYLINDER;
-    } 
-    else {
-      std::cerr<<"invalid obscales shape."<<std::endl;
-    }
-    collision_object.primitives.push_back(primitive);
-    collision_object.primitive_poses.push_back(pose);
-    collision_object.operation = collision_object.ADD;
+  //     // Define a pose for the box (specified relative to frame_id)
+  //     pose.orientation.w = obscales[i]["oritation"]["w"].asDouble();
+  //     pose.position.x = obscales[i]["oritation"]["x"].asDouble();
+  //     pose.position.y = obscales[i]["oritation"]["y"].asDouble();
+  //     pose.position.z = obscales[i]["oritation"]["z"].asDouble();
+  //   } else if (obscales[i]["shape"] == "CYLINDER") {
+  //     primitive.type = primitive.CYLINDER;
+  //   } 
+  //   else {
+  //     std::cerr<<"invalid obscales shape."<<std::endl;
+  //   }
+  //   collision_object.primitives.push_back(primitive);
+  //   collision_object.primitive_poses.push_back(pose);
+  //   collision_object.operation = collision_object.ADD;
 
-    collision_objects.push_back(collision_object);
-  }
-  planning_scene_interface.addCollisionObjects(collision_objects);
+  //   collision_objects.push_back(collision_object);
+  // }
+  // planning_scene_interface.addCollisionObjects(collision_objects);
 
   std::cout << "setting state"<<std::endl;
   // set the start and gaol joint state
@@ -118,6 +118,7 @@ int main(int argc, char** argv)
   // We lower the allowed maximum velocity and acceleration to 5% of their maximum.
   move_group_interface.setMaxVelocityScalingFactor(0.05);
   move_group_interface.setMaxAccelerationScalingFactor(0.05);
+  move_group_interface.allowReplanning(true);
 
   std::cout << "plan"<<std::endl;
   // Plan and excute
