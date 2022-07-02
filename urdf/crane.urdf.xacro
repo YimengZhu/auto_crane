@@ -109,7 +109,10 @@
         <joint name="base_arm">
           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
-        <actuator name="base_arm_actuator"/>
+        <actuator name="base_arm_actuator">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
     </transmission>
 
 
@@ -125,7 +128,10 @@
         <joint name="arm_slider">
           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
-        <actuator name="arm_slider_actuator"/>
+        <actuator name="arm_slider_actuator">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
     </transmission>
 
     <joint name="slider_gripper" type="prismatic">
@@ -140,47 +146,25 @@
         <joint name="slider_gripper">
           <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         </joint>
-        <actuator name="slider_gripper_actuator"/>
+        <actuator name="slider_gripper_actuator">
+            <hardwareInterface>EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
     </transmission>
 
 
 
     <!-- * * * Sensor Definitions * * * -->
-    <link name="imu">
+    <link name="camera">
         <visual>
             <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
         </visual>
     </link>
 
-    <link name="camera_1">
-        <visual>
-            <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
-        </visual>
-    </link>
-
-    <link name="camera_2">
-        <visual>
-            <xacro:box_geometry length="0.01" width="0.01" height="0.01" />
-        </visual>
-    </link>
-
-    <joint name="gripper_imu" type="fixed">
-        <parent link="gripper"/>
-        <child link="imu"/>
-        <origin xyz="0 0 0"/>
+    <joint name="slider_camera" type="fixed">
+        <parent link="slider"/>
+        <child link="camera"/>
+        <origin xyz="0 0 -0.075" rpy="0 1.57 0"/>
     </joint>
-
-    <joint name="gripper_camera_1" type="fixed">
-        <parent link="gripper"/>
-        <child link="camera_1"/>
-        <origin xyz="0 -0.025 0" rpy="0 0 -1.5708"/>
-    </joint>
-
-    <joint name="gripper_camera_2" type="fixed">
-        <parent link="gripper"/>
-        <child link="camera_2"/>
-        <origin xyz="0 0.025 0" rpy="-3.1416 0 0"/>
-    </joint>
-    
 
 </robot> 

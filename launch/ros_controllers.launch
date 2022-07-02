@@ -6,6 +6,7 @@
 
   <!-- Load the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen"  args="joint_state_controller "/>
+    output="screen"  ns="/auto_crane" 
+    args="joint1_state_controller joint2_state_controller joint3_state_controller"/>
 
 </launch>
