@@ -69,3 +69,7 @@ install(DIRECTORY config DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 add_executable(planner src/moveit_plan.cpp)
 target_link_libraries(planner ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 install(TARGETS planner DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+add_executable(obscale_detector src/obscale_detector.cpp)
+target_link_libraries(obscale_detector ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+install(TARGETS obscale_detector DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})

@@ -20,7 +20,7 @@ def distance_to_camera(perWidth, knownWidth = 24, focalLength = 610.5):
 
 def  aabb2marker(bbox_info):
     marker = Marker(type=Marker.CUBE,ns='zhangaiwu', action=Marker.ADD)
-    marker.header.frame_id = "world"
+    marker.header.frame_id = "slider"
     marker.header.stamp = rospy.Time.now()
     marker.pose.position.x = bbox_info.oritation.x
     marker.pose.position.y = bbox_info.oritation.y
