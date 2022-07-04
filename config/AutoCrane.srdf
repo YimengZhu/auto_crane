@@ -29,7 +29,5 @@
     <disable_collisions link1="arm" link2="gripper" reason="Default" />
     <disable_collisions link1="arm" link2="slider" reason="Adjacent" />
     <disable_collisions link1="gripper" link2="slider" reason="Adjacent" />
-    <disable_collisions link1="gripper" link2="imu" reason="Adjacent" />
-    <disable_collisions link1="gripper" link2="camera_1" reason="Adjacent" />
-    <disable_collisions link1="gripper" link2="camera_2" reason="Adjacent" />
+    <disable_collisions link1="gripper" link2="camera" reason="Adjacent" />
 </robot>
